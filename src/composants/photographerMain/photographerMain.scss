@@ -1,0 +1,27 @@
+.photographerMain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    }
+    h2{
+        color: #ff5722;
+        justify-content: center;
+    }
+a{
+text-decoration: none;
+}
+}
+
+@media screen and (min-width: 768px){
+    .photographerMain{
+        display: flex;
+        
+    }
+}
