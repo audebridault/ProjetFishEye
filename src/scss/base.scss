@@ -1,0 +1,20 @@
+$primaire: #901C1C;
+$bordures: #C4C4C4;
+$titres: #D3573C;
+$prix: #757575;
+
+body{
+    font-family: 'DM Sans', sans-serif;
+}
+a{
+    text-decoration: none;
+}
+
+
+@mixin flex-centered {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

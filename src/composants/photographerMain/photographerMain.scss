@@ -1,8 +1,9 @@
 .photographerMain{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    text-align: center;
 
     img{
     border-radius: 50%;
@@ -11,8 +12,11 @@
     object-fit: cover;
     }
     h2{
-        color: #ff5722;
+        color: $titres;
         justify-content: center;
+        font-size: 2.3rem;
+        margin: 0;
+        padding: 1rem 0 0 0;
     }
 a{
 text-decoration: none;
