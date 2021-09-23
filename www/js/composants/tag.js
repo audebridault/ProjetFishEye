@@ -4,11 +4,11 @@ class Tag{
         this.DOM = document.createElement("tag");
         domTarget.appendChild(this.DOM);
         this.DOM.className = "tag";
-        this.DOM.onclick= this.click;
+        this.DOM.onclick= this.click.bind(this);
         this.DOM.innerText="#"+tag;
     }
     click(){
-        console.log(this.name);
+        console.log(this.name, this);
     }
 }
 

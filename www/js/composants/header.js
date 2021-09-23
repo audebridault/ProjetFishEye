@@ -3,6 +3,7 @@ class Header{
         this.DOM = document.createElement("header");
         domTarget.appendChild(this.DOM);
         this.tags = tags;
+        this.render();
     }
 
     render(){

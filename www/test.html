@@ -6,12 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test JS</title>
-    <script src="./js/composants/header.js"></script>
-    <script src="./js/composants/navTags.js"></script>
-    <script src="./js/composants/tag.js"></script>
-    <script src="./js/pages/pageDeTest.js"></script>
+    <!-- composants -->
+    <script src="./js/composants/header.js" defer></script>
+    <script src="./js/composants/navTags.js" defer></script>
+    <script src="./js/composants/tag.js" defer></script>
+
+    <!-- pages -->
+    <script src="./js/pages/pageDeTest.js" defer></script>
+
+    <!-- elements structurants -->
+    <script src="./js/dataManager.js" defer></script>
     <script>
-        new PageDeTest(document.body);
+        window.onload = function(){
+            const dataManager = new DataManager("./data.json")
+            new PageDeTest(document.body, dataManager);
+        }
     </script>
 </head>
 

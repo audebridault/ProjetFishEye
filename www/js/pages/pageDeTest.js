@@ -1,13 +1,23 @@
 class PageDeTest{
-    constructor(domTarget){
+    /**
+     * [constructor description]
+     *
+     * @param   {HTMLElement}  domTarget    [domTarget description]
+     * @param   {DataManager}  dataManager  [dataManager description]
+     */
+    constructor(domTarget, dataManager){
+        this.data = dataManager;
         this.DOM = domTarget;
         this.render();
     }
-    render(){
-        new Header(this.DOM, ["art", "fashion", "urban"]);
+    async render(){
+        new Header(this.DOM, await this.data.photographersTags());
         const main = document.createElement("main");
         this.DOM.appendChild(main);
-
+        const photographers = this.data.photographersList();
+        photographers.forEach(photographer => {
+            new 
+        });
 
 // <%- include("../composants/header/header.html") %>
 //         <main>
