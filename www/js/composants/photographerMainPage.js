@@ -2,21 +2,12 @@ class PhotographerMainPage {
   /**
      * [constructor description]
      *
-     * @param   {[type]}  domTarget  [domTarget description]
-     * @param   {Object}  data       [data description]
-     * @param   {String}  data.name      "Ellie-Rose Wilkens",
-     * @param   {Number}  data.id      930,
-     * @param   {String}  data.city      "Paris",
-     * @param   {String}  data.country      "France",
-     * @param   {Array}  data.tags      ["sports", "architecture"],
-     * @param   {String}  data.tagline      "Capturer des compositions complexes",
-     * @param   {Number}  data.price      250,
-     * @param   {String}  data.portrait      "EllieRoseWilkens.jpg"
-     *
-     * @return  {[type]}             [return description]
+     * @param   {HTMLElement}  domTarget  [domTarget description]
+     * @param   {photographer}  data       [data description]
      */
   constructor(domTarget, data) {
     this.DOM = document.createElement("article");
+    this.DOM.className = "photographerMain";
     domTarget.appendChild(this.DOM);
     for (const [key, value] of Object.entries(data)) {
       this[key] = value;
@@ -26,8 +17,16 @@ class PhotographerMainPage {
 
   render() {
     this.DOM.innerHTML = `
-        <a href="index.html"><img alt="Fisheye Home Page" src="./images/logo.png" /></a>
-    <h1>Nos photographes</h1>
+    <a href="?photographer/${this.id}">
+        <img src="./images/Portrait_${this.portrait}" />
+        <h2>${this.name}</h2>
+    </a>
+
+    <summary>
+        <h3>${this.city},${this.country}</h3>
+        <p>${this.tagline}</p>
+        <aside>${this.price}e/jour</aside>
+    </summary>
     `;
     new NavTags(this.DOM, this.tags);
   }

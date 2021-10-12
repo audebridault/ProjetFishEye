@@ -1,19 +1,37 @@
+/**
+ * @typedef    {Object}  photographer
+ * @property   {String}  name      "Ellie-Rose Wilkens",
+ * @property   {Number}  id      930,
+ * @property   {String}  city      "Paris",
+ * @property   {String}  country      "France",
+ * @property   {Array}    tags      ["sports", "architecture"],
+ * @property   {String}  tagline      "Capturer des compositions complexes",
+ * @property   {Number}  price      250,
+ * @property   {String}  portrait      "EllieRoseWilkens.jpg"
+ */
+
+/**
+ * @typedef {Object} singleMedia
+ * @property   {String}  id        exemple:23394384,
+ * @property   {Number}  photographerId        exemple:925,
+ * @property   {String}  title        exemple:"Musical Festival Keyboard",
+ * @property   {String}  image        exemple:"Event_KeyboardCheck.jpg",
+ * @property   {Array}  tags        exemple:["events"],
+ * @property   {Number}  likes        exemple:52,
+ * @property   {String}  date        exemple:"2019-07-18",
+ * @property   {Number}  price        exemple:70
+ */
+
+/**
+ * @typedef  {Object} allData
+ * @property {Array.<photographer>}  photographers
+ * @property {Array.<singleMedia>}  media
+ */
+
 class DataManager {
   /**
    * toutes nos données
-   * @type {Object | null}
-   */
-
-  /**
-   *  * [constructor description]
-   *@param   {String}  data.name      "Ellie-Rose Wilkens",
-   * @param   {Number}  data.id      930,
-   * @param   {String}  data.city      "Paris",
-   * @param   {String}  data.country      "France",
-   * @param   {Array}  data.tags      ["sports", "architecture"],
-   * @param   {String}  data.tagline      "Capturer des compositions complexes",
-   * @param   {Number}  data.price      250,
-   * @param   {String}  data.portrait      "EllieRoseWilkens.jpg"
+   * @type {allData | null}
    */
   data = null;
 
@@ -21,11 +39,21 @@ class DataManager {
     this.src = src;
   }
 
+  /**
+   * recupère toutes les données
+   *
+   * @return  {Promise.<void>}  enregistrer les données dans this.data
+   */
   async getAllData() {
     const response = await fetch(this.src);
     this.data = await response.json();
   }
 
+  /**
+   * permt d'avoir la liste de tous les tags possible en fonction des tags de chaque photographe
+   *
+   * @return  {Promise.<Array>}  retourne la liste des tags
+   */
   async photographersTags() {
     if (this.data === null) await this.getAllData();
     let tags = [];
@@ -35,7 +63,20 @@ class DataManager {
     return [...new Set(tags)];
   }
 
-  photographersList() {
-    return this.data.photographers;
+  /**
+   * permet d'avoir la liste des photographes
+   * @param  {Array.<String>}  filters  la liste des tags actifs
+   *
+   * @return  {Array.<photographer>}  la liste des photographes
+   */
+  photographersList(filters) {
+    if (filters.length === 0 ) return this.data.photographers;
+    const list=[];
+    this.data.photographers.forEach(photographe => {
+      filters.forEach(filtre=>{
+        if(photographe.tags.indexOf(filtre) >= 0) list.push(photographe);
+      })
+    });
+    return [...new Set(list)];
   }
 }

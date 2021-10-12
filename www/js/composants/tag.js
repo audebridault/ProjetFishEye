@@ -1,14 +1,13 @@
 class Tag{
-    constructor(domTarget, tag){
+    constructor(domTarget, tag, tagAction=null){
         this.name = tag;
         this.DOM = document.createElement("tag");
         domTarget.appendChild(this.DOM);
         this.DOM.className = "tag";
-        this.DOM.onclick= this.click.bind(this);
+        if (tagAction !== null) this.DOM.onclick = ()=>{
+            tagAction(this.name);
+        } 
         this.DOM.innerText="#"+tag;
-    }
-    click(){
-        console.log(this.name, this);
     }
 }
 
