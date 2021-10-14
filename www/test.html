@@ -13,14 +13,15 @@
     <script src="./js/composants/photographerMainPage.js" defer></script>
 
     <!-- pages -->
-    <script src="./js/pages/pageDeTest.js" defer></script>
+    <script src="./js/pages/indexPage.js" defer></script>
+    <script src="./js/pages/photographerPage.js" defer></script>
 
     <!-- elements structurants -->
     <script src="./js/dataManager.js" defer></script>
+    <script src="./js/router.js" defer></script>
     <script>
         window.onload = function(){
-            const dataManager = new DataManager("./data.json")
-            new PageDeTest(document.body, dataManager);
+            const router = new Router(document.body);
         }
     </script>
     <link rel="stylesheet" href="css/style.css">

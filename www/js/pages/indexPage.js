@@ -1,4 +1,4 @@
-class PageDeTest{
+class IndexPage{
     /**
      * [constructor description]
      *
@@ -13,6 +13,7 @@ class PageDeTest{
         this.render();
     }
     async render(){
+        this.DOM.innerText = "";
         if( this.allFilters.length === 0) this.allFilters = await this.data.photographersTags();
         new Header(this.DOM, this.allFilters, this.click.bind(this));
         const main = document.createElement("main");
@@ -27,8 +28,6 @@ class PageDeTest{
         const index = this.activeFilters.indexOf(tag);
         if (index === -1) this.activeFilters.push(tag);
         else this.activeFilters.splice(index, 1);
-        
-        console.log("actifs", this.activeFilters);
         this.render();
     }
 }

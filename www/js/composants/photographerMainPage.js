@@ -17,7 +17,7 @@ class PhotographerMainPage {
 
   render() {
     this.DOM.innerHTML = `
-    <a href="?photographer/${this.id}">
+    <a href="#"  onclick="window.changePage('photographer',${this.id})">
         <img src="./images/Portrait_${this.portrait}" />
         <h2>${this.name}</h2>
     </a>
