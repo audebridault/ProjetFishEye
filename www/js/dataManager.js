@@ -50,7 +50,7 @@ class DataManager {
   }
 
   /**
-   * permt d'avoir la liste de tous les tags possible en fonction des tags de chaque photographe
+   * permet d'avoir la liste de tous les tags possible en fonction des tags de chaque photographe
    *
    * @return  {Promise.<Array>}  retourne la liste des tags
    */
@@ -78,5 +78,21 @@ class DataManager {
       })
     });
     return [...new Set(list)];
+  }
+
+  async photographerInformation(id){
+    if (this.data === null) await this.getAllData();
+    for( const photographer of this.data.photographers){
+      if (photographer.id === id) return photographer;
+    }
+  }
+
+  photographerMedia(id, order){
+    const list = [];
+    this.data.media.forEach(media => {
+      if (media.photographerId === id) list.push(media);
+    });
+    //TODO : ajouter le tri des médias
+    return list;
   }
 }
