@@ -6,15 +6,19 @@ var browserSync = require("browser-sync").create();
 var ejs = require("gulp-ejs");
 var cleanCSS = require("gulp-clean-css");
 var concat = require("gulp-concat");
+var sourcemaps = require("gulp-sourcemaps");
 
 sass.compiler = require("node-sass");
 
 function makeCss() {
   return gulp
     .src(["./src/scss/base.scss", "./src/**/*.scss"])
+    .pipe(sourcemaps.init())
     .pipe(concat("style.css"))
     .pipe(sass().on("error", sass.logError))
     .pipe(cleanCSS({ compatibility: "ie8" }))
+
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest("./www/css"));
 }
 

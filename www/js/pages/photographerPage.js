@@ -11,7 +11,9 @@ class PhotographerPage {
     this.data = dataManager;
     this.DOM = domTarget;
     this.id = idPhotographer;
-    this.DOM.className = "photographerMain";
+    this.DOM.className = "photographerPage";
+    this.totalLikes = 0;
+    this.totalLikesDOM = document.createElement("aside");
     
     // this.DOM.innerHTML = `
      //   <a href="photographerPage.html">
@@ -44,10 +46,33 @@ class PhotographerPage {
     mediaContainer.className = "imgPhotographers";
     main.appendChild(mediaContainer);
     media.forEach(element => {
-      if (element.video) new VideoComponent(mediaContainer, element);
-      if (element.image) new ImageComponent(mediaContainer, element);
+      if (element.video) new VideoComponent(mediaContainer, element, this.changeTotalLikes.bind(this));
+      if (element.image) new ImageComponent(mediaContainer, element, this.changeTotalLikes.bind(this));
+      this.totalLikes += element.likes;
     });
+    this.DOM.appendChild(this.totalLikesDOM);
+    this.totalLikesRender();
 
+  }
+
+  /**
+   * [changeTotalLikes description]
+   *
+   * @param   {Boolean}  liked  [liked description]
+   *
+   * @return  {void}        met à jour le nombre de like
+   */
+  changeTotalLikes(liked){
+    this.totalLikes += liked ? 1 : -1;
+    this.totalLikesRender();
+  }
+
+
+  totalLikesRender(){
+    this.totalLikesDOM.innerHTML = `
+    ${this.totalLikes} <i class="fas fa-heart"></i> 
+    ${this.information.price}€/jour
+    `;
   }
 }
 

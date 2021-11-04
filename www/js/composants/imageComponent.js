@@ -1,32 +1,11 @@
 class ImageComponent {
-  id;
-  photographerId;
-  title;
-  image;
-  tags;
-  likes;
-  date;
-  description;
-  price;
-
-  constructor(domTarget, props) {
-    this.DOM = document.createElement("article");
-    domTarget.appendChild(this.DOM);
-    for (const [key, value] of Object.entries(props)) {
-      this[key] = value;
-    }
-    this.render();
-  }
-
-  render(){
-      this.DOM.innerHTML = `
-      
-      <img src="./images/${this.image}" alt="${this.description}" title="${this.title}">
-      <h2>${this.title}</h2>
-
-      
+  constructor(domTarget, props, callback) {
+    const DOM = document.createElement("article");
+    domTarget.appendChild(DOM);
+    DOM.innerHTML = `
+      <img src="./images/${props.image}" alt="${props.description}" title="${props.title}">
+      <h2>${props.title}</h2>
       `;
-
-
+    new Like(DOM, props.likes, callback);
   }
 }
