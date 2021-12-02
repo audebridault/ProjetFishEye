@@ -27,12 +27,15 @@ class Router{
     showPage(newPage, args){
         switch (newPage){
             case "index" : 
+                this.DOM.className = "indexPage";
                 this.page = new IndexPage(this.DOM, this.dataManager)
                 break;
             case "photographer" :
+                this.DOM.className = "photographerPage";
                 this.page = new PhotographerPage(this.DOM, this.dataManager, args);
                 break;
             default : 
+                this.DOM.className = "404";
                 this.DOM.innerText = "404";
                 break;
         }

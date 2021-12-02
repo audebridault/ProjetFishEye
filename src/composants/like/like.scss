@@ -1,9 +1,11 @@
-i.likes{
+aside.likes{
     font-family: "Font Awesome 5 Free";
     &::after{
         content:"\f004";
     }
-    .liked{
+    &.liked{
+        &::after{
         font-weight: bold;
+        }
     }
 }

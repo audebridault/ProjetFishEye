@@ -12,7 +12,7 @@ sass.compiler = require("node-sass");
 
 function makeCss() {
   return gulp
-    .src(["./src/scss/base.scss", "./src/**/*.scss"])
+    .src(["./src/base.scss", "./src/**/*.scss"])
     .pipe(sourcemaps.init())
     .pipe(concat("style.css"))
     .pipe(sass().on("error", sass.logError))
@@ -26,6 +26,16 @@ function makePage() {
   return gulp.src("./src/pages/*.html").pipe(ejs({})).pipe(gulp.dest("./www"));
 }
 
+function makeJs(){
+  return gulp
+    .src("./src/**/*.js")
+    .pipe(sourcemaps.init())
+    .pipe(concat("app.js"))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest("./www/js"));
+
+}
+
 function watch() {
   browserSync.init({
     server: "./www",
@@ -33,8 +43,12 @@ function watch() {
 
   gulp.watch("./src/**/*.html", makePage);
   gulp.watch("./src/**/*.scss", makeCss);
+  gulp.watch("./src/**/*.js", makeJs);
   gulp.watch("www").on("change", browserSync.reload);
 }
 
-module.exports.makeCss = makeCss;
-module.exports.watch = watch;
+module.exports= {
+  makeCss,
+  watch,
+  makeJs
+};

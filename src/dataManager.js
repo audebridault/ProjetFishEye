@@ -92,7 +92,25 @@ class DataManager {
     this.data.media.forEach(media => {
       if (media.photographerId === id) list.push(media);
     });
-    //TODO : ajouter le tri des médias
+    console.log(list)
+    list.sort((a, b) => {
+      if (order === "Popularité") return b.likes - a.likes;
+      if (order === "Date") return new Date(a.date) - new Date(b.date);
+      if (order === "Titre") return this.sortText(a, b);
+    });
     return list;
+  }
+
+  sortText(a, b){
+    const fa = a.toLowerCase(),
+      fb = b.toLowerCase();
+
+    if (fa < fb) {
+      return -1;
+    }
+    if (fa > fb) {
+      return 1;
+    }
+    return 0;
   }
 }

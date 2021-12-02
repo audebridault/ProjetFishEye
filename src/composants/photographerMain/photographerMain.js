@@ -1,4 +1,4 @@
-class PhotographerMainPage {
+class PhotographerMain {
   /**
      * [constructor description]
      *

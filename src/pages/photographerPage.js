@@ -1,6 +1,6 @@
 class PhotographerPage {
-
   information;
+  filtersList = ["Popularité", "Date", "Titre"];
 
   /**
    * @param   {HTMLElement}  domTarget  [domTarget description]
@@ -14,16 +14,16 @@ class PhotographerPage {
     this.DOM.className = "photographerPage";
     this.totalLikes = 0;
     this.totalLikesDOM = document.createElement("aside");
-    
+
     // this.DOM.innerHTML = `
-     //   <a href="photographerPage.html">
-      //  '
+    //   <a href="photographerPage.html">
+    //  '
     this.render();
   }
   async render() {
     this.DOM.innerText = "chargement...";
-    if ( ! this.information ) this.information = await this.data.photographerInformation(this.id);
-    const media = await this.data.photographerMedia(this.id, ""); //TODO ajouter le tri
+    if (!this.information)
+      this.information = await this.data.photographerInformation(this.id);
     this.DOM.innerHTML = `
       <header>
         <a href="index.html"><img alt="Fisheye Home Page" src="./images/logo.png" /></a>
@@ -31,28 +31,38 @@ class PhotographerPage {
     `;
     const main = document.createElement("main");
     this.DOM.appendChild(main);
-    new PhotographerMainPage(main, this.information);
+    new PhotographerMain(main, this.information);
     main.innerHTML += `
       <button class="contact">Contactez-moi</button>
-      <div class="menu">
-        <button class="boutonMenuPrincipal">Popularité<i class="far fa-angle-down"></i></button>
-        <div class="menuDeroulant">
-            <a href="#">Date</a>
-            <a href=#>Titre</a>
-        </div>
-      </div>
-    `;
-    const mediaContainer = document.createElement("div");
-    mediaContainer.className = "imgPhotographers";
-    main.appendChild(mediaContainer);
-    media.forEach(element => {
-      if (element.video) new VideoComponent(mediaContainer, element, this.changeTotalLikes.bind(this));
-      if (element.image) new ImageComponent(mediaContainer, element, this.changeTotalLikes.bind(this));
-      this.totalLikes += element.likes;
-    });
+      `;
+    new Dropdown(main, this.filtersList, this.updateMedia.bind(this));
+    this.mediaContainer = document.createElement("div");
+    this.mediaContainer.className = "imgPhotographers";
+    main.appendChild(this.mediaContainer);
     this.DOM.appendChild(this.totalLikesDOM);
-    this.totalLikesRender();
+    this.updateMedia(this.filtersList[0]);
+  }
 
+  updateMedia(newFilter) {
+    this.mediaContainer.innerText = "";
+    const media = this.data.photographerMedia(this.id, newFilter);
+    media.forEach((element) => {
+      if (element.video)
+        new VideoComponent(
+          this.mediaContainer,
+          element,
+          this.changeTotalLikes.bind(this)
+        );
+      if (element.image)
+        new ImageComponent(
+          this.mediaContainer,
+          element,
+          this.changeTotalLikes.bind(this)
+        );
+      this.totalLikes += element.likes;
+
+      this.totalLikesRender();
+    });
   }
 
   /**
@@ -62,13 +72,12 @@ class PhotographerPage {
    *
    * @return  {void}        met à jour le nombre de like
    */
-  changeTotalLikes(liked){
+  changeTotalLikes(liked) {
     this.totalLikes += liked ? 1 : -1;
     this.totalLikesRender();
   }
 
-
-  totalLikesRender(){
+  totalLikesRender() {
     this.totalLikesDOM.innerHTML = `
     ${this.totalLikes} <i class="fas fa-heart"></i> 
     ${this.information.price}€/jour

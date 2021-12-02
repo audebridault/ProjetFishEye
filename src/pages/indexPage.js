@@ -20,7 +20,7 @@ class IndexPage{
         this.DOM.appendChild(main);
         const photographers = this.data.photographersList(this.activeFilters);
         photographers.forEach(photographer => {
-            new PhotographerMainPage(main, photographer);
+            new PhotographerMain(main, photographer);
         });
     }
 

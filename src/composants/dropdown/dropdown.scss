@@ -1,0 +1,41 @@
+ul.dropdown {
+  position: relative;
+  height: 0.5rem;
+  &.list {
+    li:first-of-type {
+      border-radius: 0.5rem 0.5rem 0 0;
+      &::after {
+        content: "\f077";
+      }
+    }
+    li:last-of-type {
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+  }
+  
+  li::after{
+    font-weight: bold;
+  }
+
+  &.selected {
+    li {
+      border-radius: 0.5rem;
+      &::after {
+        content: "\f078";
+      }
+    }
+  }
+
+  li {
+    color: white;
+    display: flex;
+    width: 7rem;
+    background-color: $primaire;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
+  li::after {
+    font-family: "Font Awesome 5 Free";
+  }
+}
